@@ -1,23 +1,26 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useCallback } from "react";
+import "./App.css";
+import { Bookcase } from "./Bookcase";
 
 function App() {
+  const [dark, setDark] = useState(false);
+
+  const getBooks = useCallback((number) => {
+    console.log("Number of books?", number);
+    return [{ name: "The Game" }];
+  }, []);
+
+  const theme = {
+    color: dark ? "white" : "black",
+    backgroundColor: dark ? "black" : "white",
+  };
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={() => setDark((previous) => !previous)}>
+        CHANGE THEME
+      </button>
+      <div style={theme}>THEME</div>
+      <Bookcase getBooks={getBooks}></Bookcase>
     </div>
   );
 }
